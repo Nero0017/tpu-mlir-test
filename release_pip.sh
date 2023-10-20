@@ -62,6 +62,10 @@ cp -rf ${PROJECT_ROOT}/capi/lib/* ${release_archive}/lib/third_party/
 # automic entries gen for entry.py and set for setup.py
 python ${release_archive}/entryconfig.py bin/ python/tools/ python/samples/
 
+# install patchelf
+# sudo apt-get update
+# sudo apt-get install patchelf
+
 # set rpath
 pushd ${release_archive}
 find ./bin/ -maxdepth 1 -type f -exec sh -c 'patchelf --set-rpath "\$ORIGIN/../lib/:\$ORIGIN/../lib/third_party/" "$0"' {} \;
@@ -71,10 +75,11 @@ find ./lib/ -maxdepth 1 -type f -exec sh -c 'patchelf --force-rpath --set-rpath 
 find ./lib/third_party/ -maxdepth 1 -type f -exec sh -c 'patchelf --force-rpath --set-rpath "\$ORIGIN/../:\$ORIGIN/./" "$0"' {} \;
 popd
 
-# build pip package
-python -m build
 
-# clean files
-# rm dist/*.tar.gz
-rm -rf ${release_archive} && rm -rf ${release_archive}.egg-info
-rm setup.py && rm MANIFEST.in
+# # build pip package
+# python -m build
+
+# # clean files
+# # rm dist/*.tar.gz
+# rm -rf ${release_archive} && rm -rf ${release_archive}.egg-info
+# rm setup.py && rm MANIFEST.in
