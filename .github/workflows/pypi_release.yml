@@ -23,10 +23,11 @@ jobs:
         docker run --privileged --name myname1234 -v $PWD:/workspace sophgo/tpuc_dev:latest /bin/bash -c "
           sudo apt-get update
           sudo apt-get install patchelf
-          python3 -m pip install --upgrade pip
-          python3 -m pip install --upgrade build
-          python3 -m pip install --upgrade twine
           sudo apt-get install python3.10-dev
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build
+          python -m pip install --upgrade twine
+          python -m pip install --upgrade pip setuptools
           . release_pip.sh
         "
     - name: Publish tpu_mlir package distributions to PyPI
