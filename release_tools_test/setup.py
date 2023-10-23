@@ -74,7 +74,7 @@ setup(
             "paddle2onnx==1.0.8",
         ]
     },
-    scripts=["release_tools/envsetup.sh"],
+    scripts=["release_tools_test/envsetup.sh"],
     entry_points={
         "console_scripts": [  # command entries corresponding to the functions in entry.py.
             "tpu_mlir_test_get_resource=tpu_mlir_test:cp_from_package_root",
