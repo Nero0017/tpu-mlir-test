@@ -2,12 +2,12 @@
 set -e
 
 source envsetup.sh
-rm -rf ${INSTALL_PATH}
-rm -rf ${PROJECT_ROOT}/regression/regression_out
+# rm -rf ${INSTALL_PATH}
+# rm -rf ${PROJECT_ROOT}/regression/regression_out
 # source build.sh RELEASE
 
 export mlir_version="$(grep MLIR_VERSION ${BUILD_PATH}/CMakeCache.txt | cut -d "=" -f2)"
-release_archive="./tpu_mlir"
+release_archive="./tpu_mlir_test"
 
 rm -rf ${release_archive}
 mkdir -p ${release_archive}
