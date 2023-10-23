@@ -77,8 +77,8 @@ echo ${mlir_version} > ${release_archive}/__version__
 # popd
 
 
-# # build pip package
-# python -m build
+# build pip package
+python -m build
 
 # # clean files
 # # rm dist/*.tar.gz
