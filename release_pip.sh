@@ -17,8 +17,8 @@ cp -rf ${PROJECT_ROOT}/regression ${release_archive}
 rm -rf ${release_archive}/regression/model
 cp -rf ${PROJECT_ROOT}/third_party/customlayer ${release_archive}
 cp -rf /usr/local/python_packages/caffe/ ${release_archive}/python/caffe/
-cp ${PROJECT_ROOT}/release_tools/{__init__.py,entryconfig.py} ${release_archive}
-cp ${PROJECT_ROOT}/release_tools/{setup.py,MANIFEST.in} ${PROJECT_ROOT}
+cp ${PROJECT_ROOT}/release_tools_test/{__init__.py,entryconfig.py} ${release_archive}
+cp ${PROJECT_ROOT}/release_tools_test/{setup.py,MANIFEST.in} ${PROJECT_ROOT}
 touch ${release_archive}/__version__
 echo ${mlir_version} > ${release_archive}/__version__
 
