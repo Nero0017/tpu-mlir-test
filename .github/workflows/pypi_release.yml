@@ -37,11 +37,13 @@ jobs:
         id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
       steps:
       # retrieve your distributions here
-      - name: Check current pwd
-        run: find / -name dist
-        
+      - name: Enter docker
+        run: |
+          docker start myname1234
+          docker exec -it myname1234 bash
+
       - name: Check ls
-        run: ls /home/runner/work/
+        run: ls
         
       - name: Check ls 2
         run: ls /home/runner/work/tpu-mlir-test
