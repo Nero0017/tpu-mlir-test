@@ -25,6 +25,7 @@ jobs:
           sudo apt-get install patchelf
           python3 -m pip install --upgrade pip
           python3 -m pip install --upgrade build
+          python3 -m pip install --upgrade twine
           . release_pip.sh
         "
     - name: Publish tpu_mlir package distributions to PyPI
