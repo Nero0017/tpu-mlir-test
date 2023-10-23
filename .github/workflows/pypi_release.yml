@@ -49,6 +49,11 @@ jobs:
       permissions:
         id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
       steps:
+      - name: Make dist dir
+        run: |
+          mkdir dist && cd dist
+          pwd
+
       - uses: actions/download-artifact@v3
         with:
           name: my-artifact
