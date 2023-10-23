@@ -21,6 +21,9 @@ jobs:
     - name: Run Docker container
       run: |
         docker run --privileged --name myname1234 -v $PWD:/workspace sophgo/tpuc_dev:latest /bin/bash -c "
+          pwd
+          ls
+          
           apt-get update
           apt-get install patchelf
           apt-get install python3.10-dev
