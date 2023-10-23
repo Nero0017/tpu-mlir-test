@@ -7,6 +7,8 @@ setup(
     author="sophgo",
     author_email="dev@sophgo.com",
     description=f"Machine learning compiler based on MLIR for Sophgo TPU {os.getenv('mlir_version')}.",
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     # readme="README.md",
     license="Apache",
     platforms="unbuntu22.04",
