@@ -9,7 +9,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./scripts
+
     container:
       image: sophgo/tpuc_dev:latest
       volumes:
