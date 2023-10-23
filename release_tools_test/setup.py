@@ -3,7 +3,7 @@ import os
 
 setup(
     name="tpu_mlir_test",
-    version=os.getenv("mlir_version").split("-")[0],
+    version="1.3",
     author="sophgo",
     author_email="dev@sophgo.com",
     description=f"Machine learning compiler based on MLIR for Sophgo TPU {os.getenv('mlir_version')}.",
