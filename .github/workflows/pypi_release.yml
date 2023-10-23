@@ -28,7 +28,7 @@ jobs:
         python -m pip install --upgrade twine
         python -m pip install --upgrade pip setuptools
         ls
-        source ./release_pip.sh
+        . ./release_pip.sh
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
       with:
