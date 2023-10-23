@@ -52,18 +52,18 @@ jobs:
       - name: Make dist dir
         run: |
           mkdir dist && cd dist
-          pwd
+          ls
 
       - uses: actions/download-artifact@v3
         with:
           name: my-artifact
+          path: ./dist/
     
       - name: Display structure of downloaded files
         run: |
           pwd
-          ls -R
-          cd ..
-          pwd
+          ls
+          cd dist
           ls
         
       - name: Publish package distributions to PyPI
