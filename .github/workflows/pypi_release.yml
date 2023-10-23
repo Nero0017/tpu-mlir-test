@@ -6,6 +6,16 @@ jobs:
   build:
     name: Collect and Build
     runs-on: ubuntu-latest
+    container:
+      image: sophgo/tpuc_dev:latest
+      volumes:
+        - $PWD:/workspace
+    environment:
+      name: pypi
+      url: https://pypi.org/p/tpu_mlir_test
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -15,30 +25,14 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run --privileged --name myname1234 -v $PWD:/workspace sophgo/tpuc_dev:latest /bin/bash -c "
-          apt-get update
-          apt-get install patchelf
-          apt-get install python3.10-dev
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade build
-          python -m pip install --upgrade twine
-          python -m pip install --upgrade pip setuptools
-          . release_pip.sh
-        "
+        apt-get update
+        apt-get install patchelf
+        apt-get install python3.10-dev
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade build
+        python -m pip install --upgrade twine
+        python -m pip install --upgrade pip setuptools
+        . release_pip.sh
 
-  pypi-publish:
-      needs: build
-      name: Upload release to PyPI
-      runs-on: ubuntu-latest
-      environment:
-        name: pypi
-        url: https://pypi.org/p/tpu_mlir_test
-      permissions:
-        id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
-      steps:
-      # retrieve your distributions here
-      - name: Enter docker
-        run: sudo find / -name tpu_mlir_test*
-        
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
