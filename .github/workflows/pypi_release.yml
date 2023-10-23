@@ -16,9 +16,6 @@ jobs:
     - name: Run Docker container
       run: |
         docker run --privileged --name myname1234 -v $PWD:/workspace sophgo/tpuc_dev:latest /bin/bash -c "
-          pwd
-          ls
-          
           apt-get update
           apt-get install patchelf
           apt-get install python3.10-dev
@@ -41,6 +38,9 @@ jobs:
       steps:
       # retrieve your distributions here
       - name: Check current pwd
-        run: find / -name dist
+        run: |
+          find / -name dist
+          ls /home/runner/work/
+          ls /home/runner/work/tpu-mlir-test
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
