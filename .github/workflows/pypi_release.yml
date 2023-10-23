@@ -9,7 +9,7 @@ jobs:
     container:
       image: sophgo/tpuc_dev:latest
       volumes:
-        - $PWD:/workspace
+        - /github/workspace:/workspace
     environment:
       name: pypi
       url: https://pypi.org/p/tpu_mlir_test
@@ -20,11 +20,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Pull Docker image
-      run: docker pull sophgo/tpuc_dev:latest
-
     - name: Run Docker container
       run: |
+        ls
         apt-get update
         apt-get install patchelf
         apt-get install python3.10-dev
