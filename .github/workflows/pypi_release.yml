@@ -54,7 +54,12 @@ jobs:
           name: my-artifact
     
       - name: Display structure of downloaded files
-        run: ls -R
+        run: |
+          pwd
+          ls -R
+          cd ..
+          pwd
+          ls
         
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
