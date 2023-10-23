@@ -42,8 +42,7 @@ jobs:
       # retrieve your distributions here
       - name: Check current pwd
         run: |
-          cd ..
           pwd
-          ls
+          find / -name dist
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
