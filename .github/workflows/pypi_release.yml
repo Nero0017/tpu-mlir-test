@@ -38,15 +38,7 @@ jobs:
       steps:
       # retrieve your distributions here
       - name: Enter docker
-        run: |
-          docker start myname1234
-          docker exec -it myname1234 bash
-
-      - name: Check ls
-        run: ls
-        
-      - name: Check ls 2
-        run: ls /home/runner/work/tpu-mlir-test
+        run: sudo find / -name tpu_mlir_test*
         
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
