@@ -38,9 +38,13 @@ jobs:
       steps:
       # retrieve your distributions here
       - name: Check current pwd
-        run: |
-          find / -name dist
-          ls /home/runner/work/
-          ls /home/runner/work/tpu-mlir-test
+        run: find / -name dist
+        
+      - name: Check ls
+        run: ls /home/runner/work/
+        
+      - name: Check ls 2
+        run: ls /home/runner/work/tpu-mlir-test
+        
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
