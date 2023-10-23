@@ -6,6 +6,10 @@ jobs:
   build:
     name: Collect and Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./scripts
     container:
       image: sophgo/tpuc_dev:latest
       volumes:
@@ -28,7 +32,7 @@ jobs:
         python -m pip install --upgrade twine
         python -m pip install --upgrade pip setuptools
         ls
-        release_pip.sh
+        . release_pip.sh
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
       with:
