@@ -6,31 +6,49 @@ jobs:
   build:
     name: Collect and Build
     runs-on: ubuntu-latest
-    container:
+	container:
       image: sophgo/tpuc_dev:latest
       volumes:
-        - /github/workspace:/workspace
-    environment:
-      name: pypi
-      url: https://pypi.org/p/tpu_mlir_test
-    permissions:
-      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
-    
+        - /github/workspace:/workspace/tpu-mlir/
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Run Docker container
-      run: |
-        ls
-        apt-get update
-        apt-get install patchelf
-        apt-get install python3.10-dev
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade build
-        python -m pip install --upgrade twine
-        python -m pip install --upgrade pip setuptools
-        . release_pip.sh
+	- name: Check dirs
+	  run: |
+	    pwd
+		ls
 
-    - name: Publish package distributions to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Collect files and build
+      run: |
+		apt-get update
+		apt-get install patchelf
+		apt-get install python3.10-dev
+		python -m pip install --upgrade pip
+		python -m pip install --upgrade build
+		python -m pip install --upgrade twine
+		python -m pip install --upgrade pip setuptools
+		. release_pip.sh
+
+	- name: Upload to Artifacts
+      uses: actions/upload-artifact@v3
+        with:
+          name: tpu_mlir_test_files
+          path: .
+
+  pypi-publish:
+      needs: build
+      name: Upload release to PyPI
+      runs-on: ubuntu-latest
+      environment:
+        name: pypi
+        url: https://pypi.org/p/tpu_mlir_test
+      permissions:
+        id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+      steps:
+	  - uses: actions/download-artifact@v3
+		with:
+		  name: my-artifact
+        
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
