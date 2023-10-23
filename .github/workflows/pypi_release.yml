@@ -4,13 +4,8 @@ on:
 
 jobs:
   build:
-    name: Build and release
+    name: Collect and Build
     runs-on: ubuntu-latest
-
-    permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
-      id-token: write
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -33,5 +28,16 @@ jobs:
           python -m pip install --upgrade pip setuptools
           . release_pip.sh
         "
-    - name: Publish tpu_mlir package distributions to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+  pypi-publish:
+      name: Upload release to PyPI
+      runs-on: ubuntu-latest
+      environment:
+        name: pypi
+        url: https://pypi.org/p/tpu_mlir_test
+      permissions:
+        id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+      steps:
+      # retrieve your distributions here
+  
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
