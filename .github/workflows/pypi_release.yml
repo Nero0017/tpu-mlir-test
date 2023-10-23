@@ -26,8 +26,7 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install --upgrade build
           python3 -m pip install --upgrade twine
-          pwd
-          ls
+          sudo apt-get install python3.10-dev
           . release_pip.sh
         "
     - name: Publish tpu_mlir package distributions to PyPI
