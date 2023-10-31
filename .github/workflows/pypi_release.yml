@@ -66,9 +66,6 @@ jobs:
           ls
           cd dist
           ls
-        
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -76,3 +73,7 @@ jobs:
         with:
           files: |
             ./dist/*.whl
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+      
