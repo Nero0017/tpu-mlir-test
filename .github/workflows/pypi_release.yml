@@ -1,6 +1,7 @@
-
 on:
-  push:
+  label:
+    types:
+      - created
 
 jobs:
   build:
@@ -24,14 +25,14 @@ jobs:
 
     - name: Run Docker container
       run: |
-        apt-get update
-        apt-get install patchelf
-        apt-get install python3.10-dev
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade build
-        python -m pip install --upgrade twine
-        python -m pip install --upgrade pip setuptools
-        ls
+        # apt-get update
+        # apt-get install patchelf
+        # apt-get install python3.10-dev
+        # python -m pip install --upgrade pip
+        # python -m pip install --upgrade build
+        # python -m pip install --upgrade twine
+        # python -m pip install --upgrade pip setuptools
+        # ls
         . release_pip.sh
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
