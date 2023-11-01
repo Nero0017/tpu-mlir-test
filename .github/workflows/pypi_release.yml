@@ -51,6 +51,7 @@ jobs:
         name: pypi
         url: https://pypi.org/p/tpu_mlir_test
       permissions:
+        contents: write
         id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
       steps:
       - name: Make dist dir
@@ -79,4 +80,4 @@ jobs:
         with:
           files: |
             ./dist/*.whl
-          token: ${{ secrets.tpu_mlir_test }}
+          # token: ${{ secrets.tpu_mlir_test }}
