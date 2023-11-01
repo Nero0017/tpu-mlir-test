@@ -7,6 +7,7 @@ rm -rf ${PROJECT_ROOT}/regression/regression_out
 # source build.sh RELEASE
 
 if [ "$GITHUB_ACTIONS" == "true" ]; then
+  echo "In Github Actions!!!!"
   export mlir_version=""
 else
   export mlir_version="$(grep MLIR_VERSION ${BUILD_PATH}/CMakeCache.txt | cut -d "=" -f2)"
@@ -17,7 +18,7 @@ release_archive="./tpu_mlir"
 
 rm -rf ${release_archive}
 mkdir -p ${release_archive}
-cp -rf ${INSTALL_PATH}/* ${release_archive}
+# cp -rf ${INSTALL_PATH}/* ${release_archive}
 
 cp -rf ${PROJECT_ROOT}/regression ${release_archive}
 rm -rf ${release_archive}/regression/model
