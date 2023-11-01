@@ -79,3 +79,4 @@ jobs:
         with:
           files: |
             ./dist/*.whl
+          token: ${{ secrets.tpu_mlir_test }}
