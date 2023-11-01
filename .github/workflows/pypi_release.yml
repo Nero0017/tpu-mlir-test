@@ -16,6 +16,7 @@ jobs:
 
     container:
       image: sophgo/tpuc_dev:latest
+      options: --user 1001
       volumes:
         - /github/workspace:/workspace/tpu-mlir/
 
@@ -23,8 +24,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Add safe.directory
-      run: sudo git config --global --add safe.directory /__w/tpu-mlir-test-workflow/tpu-mlir-test-workflow
+    # - name: Add safe.directory
+    #   run: sudo git config --global --add safe.directory /__w/tpu-mlir-test-workflow/tpu-mlir-test-workflow
 
     - name: Check dirs
       run: pwd && ls
