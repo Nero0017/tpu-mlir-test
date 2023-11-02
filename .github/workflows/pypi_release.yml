@@ -24,13 +24,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # - name: Add safe.directory
-    #   run: sudo git config --global --add safe.directory /__w/tpu-mlir-test-workflow/tpu-mlir-test-workflow
-
-    - name: Check dirs
-      run: pwd && ls
-
-    - name: Run Docker container
+    - name: Build package
       run: |
         . release_pip.sh
 
@@ -40,24 +34,13 @@ jobs:
         name: my-artifact
         path: ./dist/
 
-  check-ccache:
-      needs: build
-      name: Check ccache
-      runs-on: ubuntu-latest
-      steps:
-      - name: Check ccache dir
-        run: |
-          pwd
-          ls
-          find / -name ccache
-
   pypi-publish:
       needs: build
       name: Upload release to PyPI
       runs-on: ubuntu-latest
       environment:
         name: pypi
-        url: https://pypi.org/p/tpu_mlir_test
+        url: https://pypi.org/p/tpu_mlir
       permissions:
         contents: write
         id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
@@ -72,7 +55,7 @@ jobs:
           name: my-artifact
           path: ./dist/
     
-      - name: Display structure of downloaded files
+      - name: Cd dist dir
         run: |
           pwd
           ls
@@ -88,4 +71,3 @@ jobs:
         with:
           files: |
             ./dist/*.whl
-          # token: ${{ secrets.tpu_mlir_test }}
