@@ -1,0 +1,80 @@
+on:
+  push:
+    tags:
+      - v*.*
+
+# on:
+#   push:
+
+jobs:
+  build:
+    name: Collect and Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: sophgo/tpuc_dev:latest
+      options: --user 1001
+      volumes:
+        - /github/workspace:/workspace/tpu-mlir/
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build package
+      run: |
+        . release_pip.sh
+        tar -czvf regression.tar regression/
+
+    - name: Upload to Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: |
+          ./dist/
+          ./regression.tar
+
+  pypi-publish:
+      needs: build
+      name: Upload release to PyPI
+      runs-on: ubuntu-latest
+      environment:
+        name: pypi
+        url: https://pypi.org/p/tpu_mlir
+      permissions:
+        contents: write
+        id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+      steps:
+      - name: Cd download dir
+        run: |
+          pwd
+          ls
+          mkdir download
+          cd download
+         
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+          path: ./
+    
+      - name: Cd dist dir
+        run: |
+          pwd
+          ls
+          rm -rf tpu_mlir-*
+          mv regression.tar ..
+          ls
+
+      # - name: Publish package distributions to PyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./*.whl
+            ../regression.tar
