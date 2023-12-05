@@ -61,6 +61,7 @@ jobs:
           ls
           cd dist
           ls
+          rm -rf tpu_mlir_dependence*
 
       # - name: Publish package distributions to PyPI
       #   uses: pypa/gh-action-pypi-publish@release/v1
