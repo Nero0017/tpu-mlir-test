@@ -27,7 +27,7 @@ jobs:
     - name: Build package
       run: |
         . release_pip.sh
-        tar -czvf regression.tar regression/
+        tar -czvf tpu-mlir-resource.tar regression/
 
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
@@ -35,7 +35,7 @@ jobs:
         name: my-artifact
         path: |
           ./dist/
-          ./regression.tar
+          ./tpu-mlir-resource.tar
 
   pypi-publish:
       needs: build
@@ -70,4 +70,4 @@ jobs:
         with:
           files: |
             ./dist/*.whl
-            ./regression.tar
+            ./tpu-mlir-resource.tar
