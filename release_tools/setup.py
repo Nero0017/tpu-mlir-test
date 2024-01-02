@@ -78,7 +78,7 @@ setup(
     scripts=["release_tools/envsetup.sh"],
     entry_points={
         "console_scripts": [  # command entries corresponding to the functions in entry.py.
-            "tpu_mlir_get_resource=tpu_mlir:cp_from_package_root",
+            # "tpu_mlir_get_resource=tpu_mlir:cp_from_package_root",
             ### Command Entries Will Be Set From Here. Do Not Delete This Line! ###
         ]
     },
