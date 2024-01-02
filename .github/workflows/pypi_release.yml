@@ -28,6 +28,9 @@ jobs:
       run: |
         . release_pip.sh
         tar -czvf tpu-mlir-resource.tar regression/
+        ls
+        ls ./install/
+        ls ./install/docs
 
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
