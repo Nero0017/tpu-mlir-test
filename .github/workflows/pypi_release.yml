@@ -16,6 +16,7 @@ jobs:
 
     container:
       image: sophgo/tpuc_dev:latest
+      options: --user 1001
       volumes:
         - /github/workspace:/workspace/tpu-mlir/
 
@@ -23,76 +24,60 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Check dirs
-      run: pwd && ls
-
-    - name: Cache Primes
-      id: cache-primes
-      uses: actions/cache@v3
-      with:
-        path: cache_test
-        key: ${{ runner.os }}-primes
-
-    - name: Run Docker container
-      if: steps.cache-primes.outputs.cache-hit != 'true'
+    - name: Build package
       run: |
-        # apt-get update
-        # apt-get install patchelf
-        # apt-get install python3.10-dev
-        # python -m pip install --upgrade pip
-        # python -m pip install --upgrade build
-        # python -m pip install --upgrade twine
-        # python -m pip install --upgrade pip setuptools
-        # ls
-        if [ -d "cache_test" ]; then
-          echo "Directory exists."
-        else
-          mkdir cache_test
-          echo "Directory does not exist."
-        fi
-        # . release_pip.sh
+        . release_pip.sh
+        tar -czvf tpu-mlir-resource.tar regression/
+        ls
+        ls ./install/
+        ls ./install/docs
 
-  #   - name: Upload to Artifacts
-  #     uses: actions/upload-artifact@v3
-  #     with:
-  #       name: my-artifact
-  #       path: ./dist/
+    - name: Upload to Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: |
+          ./dist/
+          ./tpu-mlir-resource.tar
+          ./install/docs/TPU-MLIR快速入门指南.pdf
+          ./install/docs/TPU-MLIR开发参考手册.pdf
+          ./install/docs/TPU-MLIR_Quick_Start.pdf
+          ./install/docs/TPU-MLIR_Technical_Reference_Manual.pdf
 
-  # pypi-publish:
-  #     needs: build
-  #     name: Upload release to PyPI
-  #     runs-on: ubuntu-latest
-  #     environment:
-  #       name: pypi
-  #       url: https://pypi.org/p/tpu_mlir_test
-  #     permissions:
-  #       contents: write
-  #       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
-  #     steps:
-  #     - name: Make dist dir
-  #       run: |
-  #         mkdir dist && cd dist
-  #         ls
+  pypi-publish:
+      needs: build
+      name: Upload release to PyPI
+      runs-on: ubuntu-latest
+      environment:
+        name: pypi
+        url: https://pypi.org/p/tpu_mlir
+      permissions:
+        contents: write
+        id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+      steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+          path: ./
+    
+      - name: Cd dist dir
+        run: |
+          pwd
+          ls
+          cd dist
+          ls
 
-  #     - uses: actions/download-artifact@v3
-  #       with:
-  #         name: my-artifact
-  #         path: ./dist/
+      - name: Release asset
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./dist/*.whl
+            ./tpu-mlir-resource.tar
+            ./TPU-MLIR快速入门指南.pdf
+            ./TPU-MLIR开发参考手册.pdf
+            ./TPU-MLIR_Quick_Start.pdf
+            ./TPU-MLIR_Technical_Reference_Manual.pdf
 
-  #     - name: Display structure of downloaded files
-  #       run: |
-  #         pwd
-  #         ls
-  #         cd dist
-  #         ls
-
-  #     # - name: Publish package distributions to PyPI
-  #     #   uses: pypa/gh-action-pypi-publish@release/v1
-
-  #     - name: Release
-  #       uses: softprops/action-gh-release@v1
-  #       if: startsWith(github.ref, 'refs/tags/')
-  #       with:
-  #         files: |
-  #           ./dist/*.whl
-  #         # token: ${{ secrets.tpu_mlir_test }}
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
