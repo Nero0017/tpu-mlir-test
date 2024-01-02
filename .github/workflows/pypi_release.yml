@@ -28,9 +28,8 @@ jobs:
       run: |
         . release_pip.sh
         tar -czvf tpu-mlir-resource.tar regression/
-        ls
-        ls ./install/
-        ls ./install/docs
+        cp ./install/docs/TPU-MLIR快速入门指南.pdf ./install/docs/TPU-MLIR_Quick_Start_ZH.pdf
+        cp ./install/docs/TPU-MLIR开发参考手册.pdf ./install/docs/TPU-MLIR_Technical_Reference_Manual_ZH.pdf
 
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
@@ -39,8 +38,8 @@ jobs:
         path: |
           ./dist/
           ./tpu-mlir-resource.tar
-          ./install/docs/TPU-MLIR快速入门指南.pdf
-          ./install/docs/TPU-MLIR开发参考手册.pdf
+          ./install/docs/TPU-MLIR_Quick_Start_ZH.pdf
+          ./install/docs/TPU-MLIR_Technical_Reference_Manual_ZH.pdf
           ./install/docs/TPU-MLIR_Quick_Start.pdf
           ./install/docs/TPU-MLIR_Technical_Reference_Manual.pdf
 
@@ -74,8 +73,8 @@ jobs:
           files: |
             ./dist/*.whl
             ./tpu-mlir-resource.tar
-            ./TPU-MLIR快速入门指南.pdf
-            ./TPU-MLIR开发参考手册.pdf
+            ./TPU-MLIR_Quick_Start_ZH.pdf
+            ./TPU-MLIR_Technical_Reference_Manual_ZH.pdf
             ./TPU-MLIR_Quick_Start.pdf
             ./TPU-MLIR_Technical_Reference_Manual.pdf
 
