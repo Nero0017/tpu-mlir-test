@@ -36,6 +36,10 @@ jobs:
         path: |
           ./dist/
           ./tpu-mlir-resource.tar
+          ./install/docs/TPU-MLIR快速入门指南.pdf
+          ./install/docs/TPU-MLIR开发参考手册.pdf
+          ./install/docs/TPU-MLIR_Quick_Start.pdf
+          ./install/docs/TPU-MLIR_Technical_Reference_Manual.pdf
 
   pypi-publish:
       needs: build
@@ -67,6 +71,10 @@ jobs:
           files: |
             ./dist/*.whl
             ./tpu-mlir-resource.tar
+            ./TPU-MLIR快速入门指南.pdf
+            ./TPU-MLIR开发参考手册.pdf
+            ./TPU-MLIR_Quick_Start.pdf
+            ./TPU-MLIR_Technical_Reference_Manual.pdf
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
