@@ -5,6 +5,8 @@ on:
 
 # on:
 #   push:
+env:
+  ACTIONS_STEP_DEBUG: true
 
 jobs:
   build:
