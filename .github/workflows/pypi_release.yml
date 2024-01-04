@@ -29,6 +29,7 @@ jobs:
         . release_pip.sh
         tar -czvf tpu-mlir-resource.tar regression/
         tar -czvf docs.tar install/docs/
+        cp -rf install/docs/* ./
 
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
@@ -38,6 +39,8 @@ jobs:
           ./dist/
           ./tpu-mlir-resource.tar
           ./docs.tar
+          ./TPU-MLIR_Quick_Start.pdf
+          ./TPU-MLIR_Technical_Reference_Manual.pdf
 
   pypi-publish:
       needs: build
@@ -70,6 +73,8 @@ jobs:
             ./dist/*.whl
             ./tpu-mlir-resource.tar
             ./docs.tar
+            ./TPU-MLIR_Quick_Start.pdf
+            ./TPU-MLIR_Technical_Reference_Manual.pdf
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
