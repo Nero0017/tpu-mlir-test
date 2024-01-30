@@ -58,7 +58,10 @@ def entryset(project_path):
         insert_code_list = []
         for function_name in function_names:
             insert_code_list.append(
-                f'"{function_name}=tpu_mlir.entry:{function_name.replace("-","_")}",'
+                f'"{function_name}=tpu_mlir_test.entry:{function_name.replace("-","_")}",'
+            )
+            insert_code_list.append(
+                f'"{function_name}.py=tpu_mlir_test.entry:{function_name.replace("-","_")}",'
             )
 
         insert_code = "\n".join([marker_indent + line for line in insert_code_list])
@@ -74,7 +77,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "execute_path",
         nargs="*",
-        help="execute_path of files needed to codegen relative to the **tpu_mlir (copied) folder**",
+        help="execute_path of files needed to codegen relative to the **tpu_mlir_test (copied) folder**",
     )
     args = parser.parse_args()
 
@@ -84,7 +87,7 @@ if __name__ == "__main__":
     dirname, filename = os.path.split(os.path.abspath(__file__))
     with open(os.path.join(dirname, "entry.py"), "w+") as f:
         f.write(
-            "import tpu_mlir,os\nfrom tpu_mlir import run_subprocess_c, run_subprocess_py\n\n"
+            "import tpu_mlir_test,os\nfrom tpu_mlir_test import run_subprocess_c, run_subprocess_py\n\n"
         )
         f.writelines(entrygen_functions)
 

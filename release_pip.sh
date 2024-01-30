@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-######################### build tpu_mlir core package #######################
+######################### build tpu_mlir_test core package #######################
 # build RELEASE
 source envsetup.sh
 rm -rf ${INSTALL_PATH}
@@ -11,8 +11,8 @@ source build.sh RELEASE
 # set mlir_version
 export mlir_version="$(grep MLIR_VERSION ${BUILD_PATH}/CMakeCache.txt | cut -d "=" -f2)"
 
-# collect tpu_mlir core files
-export release_archive="./tpu_mlir"
+# collect tpu_mlir_test core files
+export release_archive="./tpu_mlir_test"
 rm -rf ${release_archive}
 mkdir -p ${release_archive}
 cp -rf ${INSTALL_PATH}/* ${release_archive}
@@ -64,10 +64,7 @@ do
 done
 
 # collect_oneDNN_dependence
-for file in {libdnnl.so,libdnnl.so.3,libdnnl.so.3.1}
-do
-    cp -d /usr/local/lib/${file} ${release_archive}/lib/third_party/
-done
+cp -L /usr/local/lib/libdnnl.so.3 ${release_archive}/lib/third_party/
 
 # collect_capi_dependence
 cp -rf ${PROJECT_ROOT}/capi/lib/* ${release_archive}/lib/third_party/

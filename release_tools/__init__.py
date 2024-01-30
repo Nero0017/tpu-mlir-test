@@ -1,6 +1,6 @@
 import sys, os, subprocess, pkg_resources
 
-package_name = "tpu_mlir"
+package_name = "tpu_mlir_test"
 
 # get tpu_mlir package path
 try:
