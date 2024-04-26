@@ -67,6 +67,8 @@ jobs:
     - name: Delete *.tar.gz
       run: |
         ls
+        cd dist
+        ls
         rm ./dist/*.tar.gz
 
     - name: Publish package distributions to PyPI
