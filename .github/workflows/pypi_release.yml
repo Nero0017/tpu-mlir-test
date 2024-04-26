@@ -63,12 +63,13 @@ jobs:
       with:
         name: my-artifact
         path: ./
+    - name: check dir
+      run: |
+        pwd
+        ls
 
     - name: Delete *.tar.gz
       run: |
-        ls
-        cd dist
-        ls
         rm ./dist/*.tar.gz
 
     - name: Publish package distributions to PyPI
