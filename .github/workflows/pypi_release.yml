@@ -65,7 +65,9 @@ jobs:
         path: ./
 
     - name: Delete *.tar.gz
-      run: rm ./dist/*.tar.gz
+      run: |
+        ls
+        rm ./dist/*.tar.gz
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
