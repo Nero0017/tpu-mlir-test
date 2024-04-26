@@ -63,8 +63,8 @@ jobs:
       run: |
         pwd
         ls
-	mkdir dist && cd dist
-	pwd
+        mkdir dist && cd dist
+        pwd
 
     - uses: actions/download-artifact@v3
       with:
