@@ -71,7 +71,6 @@ jobs:
         name: my-artifact
         path: ./
 
-
     - name: Delete *.tar.gz
       run: rm *.tar.gz
 
